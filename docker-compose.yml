@@ -3,13 +3,17 @@ services:
     image: mysql:latest
     restart: always
     environment:
+      # Estas variáveis inicializam o banco quando o diretório de dados está vazio.
+      # Alterá-las depois não troca automaticamente usuários e senhas de um banco já existente.
       MYSQL_USER: "admin"
       MYSQL_PASSWORD: "admin123"
       MYSQL_DATABASE: "flask-application"
       MYSQL_ROOT_PASSWORD: "admin123"
     ports:
+      # host:container — o Flask no host acessa o MySQL por 127.0.0.1:3306.
       - "3306:3306"
     expose:
       - "3306"
     volumes:
+      # Os dados ficam nesta pasta do host e persistem mesmo quando o container é recriado.
       - /home/guts/Python-Courses/RocketSeat-Course/mysql:/var/lib/mysql
